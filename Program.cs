@@ -4,10 +4,8 @@ using bint = System.Numerics.BigInteger;
 namespace Project206;
 internal class Program
 {
-    static void Main(string[] args)
+    static void Basics()
     {
-        Console.InputEncoding = Encoding.UTF8;
-        Console.OutputEncoding = Encoding.UTF8;
         Console.WriteLine("=================Типи даних============================");
         // [тип даних] [назва змінної];
         // [тип даних] [назва змінної] = [значення];
@@ -152,7 +150,8 @@ internal class Program
             Console.Write($"{k} ");
         }
         Console.WriteLine();
-        for (int k = 0; k < arr3.Length; k++) {
+        for (int k = 0; k < arr3.Length; k++)
+        {
             Console.Write($"{arr3[k]} ");
         }
         Console.WriteLine();
@@ -193,7 +192,8 @@ internal class Program
 
         Console.WriteLine("===================== Функції ==========================");
         // [Модифікатор] Тип_повертаючого_значення Назва_функції([параметр1],[параметр2]) { [Тіло функції] }
-        void SayHello1() {
+        void SayHello1()
+        {
             Console.WriteLine("Привітання!");
         }
         SayHello1();
@@ -207,7 +207,7 @@ internal class Program
         SayHello2("Привіт!");
         SayHello2();
 
-        int Sub(int x, int y) 
+        int Sub(int x, int y)
         {
             return x - y;
         }
@@ -218,7 +218,7 @@ internal class Program
 
         int in4 = 5;
         //Функція з переданими параметрами по значенню
-        void Increase1(int inc) 
+        void Increase1(int inc)
         {
             inc += 2;
             Console.WriteLine(inc);
@@ -236,7 +236,8 @@ internal class Program
         Console.WriteLine(in4);
 
         //Функція з вихідними параметрами (модифікатор out)
-        int Multiply1(int x, int y, out int res) {
+        int Multiply1(int x, int y, out int res)
+        {
             x += 10;
             res = x * y;
             return x * x;
@@ -256,9 +257,11 @@ internal class Program
         Console.WriteLine($"{res1} {res2}");
 
         //Функція з масивом параметрів (ключове слово params)
-        int Sum(params int[] nums) {
+        int Sum(params int[] nums)
+        {
             int count = 0;
-            foreach (int n in nums) {
+            foreach (int n in nums)
+            {
                 count += n;
             }
             return count;
@@ -267,18 +270,67 @@ internal class Program
         Console.WriteLine(Sum(1, 2, 3));
 
         //Рекурсивна функція з обчислення факторіалу числа
-        int Factorial(byte n) {
+        ulong Factorial(byte n)
+        {
             if (n == 1) return 1;
             return n * Factorial(--n);
         }
         byte n = Convert.ToByte(Console.ReadLine());
         Console.WriteLine(Factorial(n));
+    }
+    static void Main(string[] args)
+    {
+        Console.InputEncoding = Encoding.UTF8;
+        Console.OutputEncoding = Encoding.UTF8;
+        //Basics();
+        Console.WriteLine("===================== Переліки =====================");
+        void DoOperation(int a, int b, Operation op)
+        {
+            switch (op)
+            {
+                case Operation.Exit: break;
+                case Operation.Add: Console.WriteLine(a + b); break;
+                case Operation.Sub: Console.WriteLine(a - b); break;
+                case Operation.Mult: Console.WriteLine(a * b); break;
+                case Operation.Div: Console.WriteLine(a / b); break;
+                default: Console.WriteLine("Операція задана некоректно!"); break;
+            }
+        }
+        int o1 = Convert.ToInt32(Console.ReadLine());
+        int o2 = Convert.ToInt32(Console.ReadLine());
+        Operation o3 = Operation.None;
+        while (o3 != Operation.Exit)
+        {
+            o3 = (Operation)Convert.ToInt32(Console.ReadLine());
+            DoOperation(o1, o2, o3);
+        }
+        Console.WriteLine("===================== Структури =====================");
+        Person person = new Person("Ivan", 30);
+        //person._name = "Ivan";
+        person.PersonInfo();
 
+    }
+    enum Operation : sbyte
+    {
+        None = -1, Exit = 0, Add, Sub, Mult, Div
+    }
+    struct Person
+    {
+        //Поля структури
+        private string _name = "Undefined";
+        private int _age = 0;
 
+        //Конструктор
+        public Person(string name, int age)
+        {
+            _name = name;
+            _age = age;
+        }
 
-
-
-
-
+        //Метод
+        public void PersonInfo() 
+        {
+            Console.WriteLine($"{_name} {_age}");
+        }
     }
 }
