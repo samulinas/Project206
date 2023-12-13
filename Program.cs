@@ -269,7 +269,7 @@ internal class Program
         //Рекурсивна функція з обчислення факторіалу числа
         int Factorial(byte n) {
             if (n == 1) return 1;
-            return n * Factorial(n--);
+            return n * Factorial(--n);
         }
         byte n = Convert.ToByte(Console.ReadLine());
         Console.WriteLine(Factorial(n));
