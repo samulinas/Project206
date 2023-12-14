@@ -207,10 +207,8 @@ internal class Program
         SayHello2("Привіт!");
         SayHello2();
 
-        int Sub(int x, int y)
-        {
-            return x - y;
-        }
+        int Sub(int x, int y) => x - y;
+        
         int x = Convert.ToInt32(Console.ReadLine());
         int y = Convert.ToInt32(Console.ReadLine());
         Console.WriteLine(Sub(x, y));
@@ -308,7 +306,13 @@ internal class Program
         Person person = new Person("Ivan", 30);
         //person._name = "Ivan";
         person.PersonInfo();
-
+        person.PersonInfo("Ім'я", "Вік");
+        person.Name = "Tom";
+        Console.WriteLine(person.Name);
+        person.Deconstruct(out string name, out int age);
+        Console.WriteLine($"{name}, {age}");
+        (_, age) = person;
+        Console.WriteLine($"{age}");
     }
     enum Operation : sbyte
     {
@@ -318,19 +322,49 @@ internal class Program
     {
         //Поля структури
         private string _name = "Undefined";
-        private int _age = 0;
+        //private int _age = 0;
+
+        //Властивості
+        public string Name 
+        { 
+            get => _name;
+            set => _name = value;
+        }
+        public int Age { get; set; }
+
+        //public string GetName() {
+        //    Console.WriteLine(_name);
+        //    return _name;
+        //}
+        //public void SetName(string name)
+        //{
+        //    _name = name;
+        //}
 
         //Конструктор
         public Person(string name, int age)
         {
             _name = name;
-            _age = age;
+            Age = age;
+        }
+
+        //Деконструктор
+        public void Deconstruct(out string name, out int age) 
+        {
+            name = _name;
+            age = Age;
         }
 
         //Метод
         public void PersonInfo() 
         {
-            Console.WriteLine($"{_name} {_age}");
+            Console.WriteLine($"{_name} {Age}");
+        }
+
+        //Перевантажений метод
+        public void PersonInfo(string title_name, string title_age)
+        {
+            Console.WriteLine($"{title_name}: {_name}, {title_age}: {Age}");
         }
     }
 }
